@@ -26,44 +26,37 @@
       rel="stylesheet"/>
 <link rel="stylesheet" href="index.css">
 
+
 </head>
 <body>
-<div style="width: 500px; height: auto; margin: 50px auto; text-align: center ; border: 1px solid gray; border-radius: 5px">
-    <h1 style="margin-top: 5%">Sandwich Condiments</h1>
-    <form action="/show" method="post" style="text-align: left; margin-top: 5%;">
-        <div class="row">
-            <div class="col-sm-6" style="margin-left: 28%; width: 42.3%">
-                <ul class="list-group">
-                    <li class="list-group-item">
-                        <input class="form-check-input me-1" type="checkbox" value="Lettuce" name="spice" aria-label="...">
-                        Lettuce
-                    </li>
-                    <li class="list-group-item">
-                        <input class="form-check-input me-1" type="checkbox" value="Tomato" name="spice" aria-label="...">
-                        Tomato
-                    </li>
-                    <li class="list-group-item">
-                        <input class="form-check-input me-1" type="checkbox" value="Mustard" name="spice" aria-label="...">
-                        Mustard
-                    </li>
-                    <li class="list-group-item">
-                        <input class="form-check-input me-1" type="checkbox" value="Sprouts" name="spice" aria-label="...">
-                        Sprouts
-                    </li>
-                </ul>
-            </div>
 
+<div style="width: 500px; height: auto; margin: 50px auto; text-align: center ; border: 1px solid gray; border-radius: 5px">
+    <h1 style="margin-top: 5%">Calculator Controller</h1>
+    <form action="/calculator" method="post" style="text-align: left; margin-top: 5%;">
+        <div class="row">
+            <div class="col-sm-6" style="margin-left: 5%; width: 42.3%;">
+                <div class="wrapper" style="display: flex">
+                    <input required type="number" name="numberOne" />
+
+                </div>
+            </div>
+            <div class="col-sm-6" style="margin-left: 5%; width: 42.3%;">
+                <div class="wrapper" style="display: flex">
+
+                    <input required type="number" name="numberTwo"  />
+                </div>
+
+            </div>
         </div>
         <hr>
         <div style="text-align: center">
-            <button type="submit" class="btn btn-secondary btn-block mb-4" style="width: 100px">SAVE</button>
+            <button type="submit" name="action" value="addition" class="btn btn-primary btn-block mb-4" style="width: 100px">Add(+)</button>
+            <button type="submit" name="action" value="subtraction" class="btn btn-primary btn-block mb-4" style="width: 100px">Sub(-)</button>
+            <button type="submit" name="action" value="multiplication" class="btn btn-primary btn-block mb-4" style="width: 100px">Mul(*)</button>
+            <button type="submit" name="action" value="division" class="btn btn-primary btn-block mb-4" style="width: 100px">Div(/)</button>
         </div>
     </form>
-    <h3>Your Sandwich Has: </h3>
-    <c:forEach var="spice" items="${spice}">
-    <h4 style="display:inline;color: blue">${spice}, </h4>
-    </c:forEach>
-
-
+    <h3> Result: ${result}</h3>
+</div>
 </body>
 </html>

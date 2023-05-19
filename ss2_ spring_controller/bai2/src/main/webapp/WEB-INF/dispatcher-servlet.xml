@@ -11,7 +11,7 @@
         http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
     <!--    Config nơi chứa bean ( viết code ở trong thư mục này-->
-    <context:component-scan base-package="com.example.demo"/>
+    <context:component-scan base-package="com.example.bai2"/>
     <mvc:annotation-driven/>
 
     <!--    Config nơi chưa view.-->
