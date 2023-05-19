@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
-public class CurrencyConversion {
+public class CurrencyConversionController {
     @Autowired
     private ICurrencyConversionService iCurrencyConversionService;
     @GetMapping("/")
