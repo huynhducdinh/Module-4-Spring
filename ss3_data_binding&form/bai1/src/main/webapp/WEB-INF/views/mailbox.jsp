@@ -28,6 +28,7 @@
       rel="stylesheet"/>
 
 <link rel="stylesheet" href="mailbox.css">
+<link rel="stylesheet" href="button.css">
 </head>
 <body>
 <div class="container">
@@ -39,63 +40,61 @@
             <div class="card mt-2 mx-auto p-4 bg-light">
                 <div class="card-body bg-light">
                     <div class="container">
+                        <form:form id="contact-form" role="form" action="/mail" method="post"
+                                   modelAttribute="electronicMailBoxModel">
                         <div class="controls">
                             <div class="row">
-                                <form:form id="contact-form" role="form" action="/mailbox" method="post"
-                                           modelAttribute="mailBox">
-
                                 <div class="form-group">
                                     <label>Languages</label>
-                                    <form:select path="language" name="language" class="form-control"
+                                    <form:select path="language" class="form-control"
                                                  required="required">
                                         <form:options items="${language}"/>
                                     </form:select>
                                 </div>
 
-                                <div class="form-group">
+                                <div class="">
                                     <label>Page Size</label>
-                                    <form:select path="pageSize" name="pageSize" class="form-control"
-                                                 required="required">
+                                    <form:select path="pageSize" class="form-control"
+                                                 required="required" cssStyle="width: 30%">
                                         <form:options items="${pageSize}"/>
                                     </form:select>
                                 </div>
-
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="form_lastname">Spams Filter: </label>
-                                        <form:checkbox path="spamsFilter" id="form_lastname"/> Enable
-                                        spams
-                                        filter
-                                    </div>
-                                </div>
                             </div>
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <label for="form_message"> Signature: </label>
-                                        <textarea id="form_message" name="message" class="form-control"
-                                                  placeholder="Write your message here." rows="4"
-                                                  required="required"
-                                                  data-error="Please, leave us a message."></textarea>
-                                    </div>
-                                </div>
 
-                                <div class="col-md-12">
-                                    <button type="submit" class="btn btn-success btn-send  pt-2 btn-block "> Update
-                                    </button>
-                                    <button type="submit" class="btn btn-success btn-send  pt-2 btn-block "> Cancel
-                                    </button>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="form_lastname">Spams Filter: </label>
+                                    <form:checkbox path="spamsFilter" id="form_lastname"/> Enable
+                                    spams
+                                    filter
                                 </div>
                             </div>
                         </div>
-                        </form:form>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="form_message"> Signature: </label>
+                                    <form:textarea path="signature" id="form_message"  class="form-control"
+                                              placeholder="Write your message here." rows="4"
+                                              required="required"
+                                              data-error="Please, leave us a message."/>
+
+                                </div>
+                            </div>
+
+                            <div style="margin-top: 5%;margin-left: 60%">
+                                <button type="submit"  class="btn btn-primary shadow my-button w-xs green">Update
+                                </button>
+                                <button style="margin-left: 3%" onclick="window.location.href='/mail'" type="submit" class="btn btn-secondary ">Cancel</button>
+                            </div>
+                        </div>
                     </div>
+                    </form:form>
                 </div>
             </div>
         </div>
     </div>
 </div>
-
-
+</div>
 </body>
 </html>

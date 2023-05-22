@@ -5,6 +5,11 @@ import com.example.bai1.model.ElectronicMailBoxModel;
 import java.util.List;
 
 public interface IElectronicMailBoService {
-    List<String> languagesList();
-    List<String> pageSizeList();
+
+
+   ElectronicMailBoxModel getAll();
+
+   void save(ElectronicMailBoxModel electronicMailBoxModel);
+   ElectronicMailBoxModel  update();
+
 }

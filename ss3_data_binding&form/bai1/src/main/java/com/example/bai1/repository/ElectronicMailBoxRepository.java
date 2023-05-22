@@ -1,34 +1,32 @@
 package com.example.bai1.repository;
+import com.example.bai1.model.ElectronicMailBoxModel;
+
 
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
+
 @Repository
 public class ElectronicMailBoxRepository implements  IElectronicMailBoxRepository{
-  private  static List<String> languageslList =new ArrayList<>();
+
+ private static List<ElectronicMailBoxModel> electronicMailBoxModels=new ArrayList<>();
     static {
-        languageslList.add("English");
-        languageslList.add("Vietnamese");
-        languageslList.add("Japanese");
-        languageslList.add("Chinese");
+        electronicMailBoxModels.add(new ElectronicMailBoxModel("English", 15, true, "Hello"));
     }
-    public static List<String> pageSizeList=new ArrayList<>();
-    static {
-        pageSizeList.add("5");
-        pageSizeList.add("10");
-        pageSizeList.add("15");
-        pageSizeList.add("20");
+
+
+    @Override
+    public List<ElectronicMailBoxModel> getAll() {
+        return electronicMailBoxModels;
     }
 
     @Override
-    public List<String> languagesList() {
-        return languageslList;
-    }
-
-    @Override
-    public List<String> pageSizeList() {
-        return pageSizeList;
+    public void save(ElectronicMailBoxModel electronicMailBoxModel) {
+        electronicMailBoxModels.get(0).setLanguage(electronicMailBoxModel.getLanguage());
+        electronicMailBoxModels.get(0).setPageSize(electronicMailBoxModel.getPageSize());
+        electronicMailBoxModels.get(0).setSpamsFilter(electronicMailBoxModel.getSpamsFilter());
+        electronicMailBoxModels.get(0).setSignature(electronicMailBoxModel.getSignature());
     }
 
 }
