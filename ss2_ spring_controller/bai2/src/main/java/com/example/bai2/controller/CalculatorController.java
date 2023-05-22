@@ -19,38 +19,11 @@ public class CalculatorController {
     }
 
     @PostMapping("calculator")
-    public String calculator(Model model, @RequestParam(defaultValue = "0") float numberOne , @RequestParam(defaultValue = "0") float numberTwo, String action) {
-        float result;
-        switch (action) {
-            case "multiplication": {
-                result = iCalculatorService.multiplication(numberOne, numberTwo);
-                model.addAttribute("action","multiplication");
-                model.addAttribute("result", result);
-                break;
-            }
-            case "division": {
-                result = iCalculatorService.division(numberOne, numberTwo);
-                model.addAttribute("action","division");
-                model.addAttribute("result", result);
-                break;
-            }
-            case "addition": {
-                result = iCalculatorService.addition(numberOne, numberTwo);
-                model.addAttribute("action","addition");
-                model.addAttribute("result", result);
-                break;
-            }
-            case "subtraction": {
-                result = iCalculatorService.subtraction(numberOne, numberTwo);
-                model.addAttribute("action","subtraction");
-                model.addAttribute("result", result);
-                break;
-            }
-
-
-        }
-        model.addAttribute("numberOne",numberOne);
+    public String calculator(Model model, @RequestParam(defaultValue = "0") Float numberOne, @RequestParam(defaultValue = "0") Float numberTwo, String action) {
+        Float result = iCalculatorService.calculateResult(numberOne, numberTwo, action);
+        model.addAttribute("numberOne", numberOne);
         model.addAttribute("numberTwo", numberTwo);
+        model.addAttribute("result",result);
         return "index";
     }
 }

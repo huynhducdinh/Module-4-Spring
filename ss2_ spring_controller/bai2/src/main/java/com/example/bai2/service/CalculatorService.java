@@ -3,29 +3,36 @@ package com.example.bai2.service;
 import org.springframework.stereotype.Service;
 
 @Service
-public class CalculatorService implements  ICalculatorService{
+public class CalculatorService implements ICalculatorService {
 
-    @Override
-    public float multiplication(float numberOne, float numberTwo) {
-        float multiplication=numberOne * numberTwo;
-        return multiplication;
+
+
+
+        @Override
+        public Float calculateResult (Float numberOne, Float numberTwo, String math) {
+            Float result;
+            switch (math) {
+                case "multiplication": {
+                    result = numberOne * numberTwo;
+                    break;
+                }
+                case "division": {
+                    result = numberOne / numberTwo;
+                    break;
+                }
+                case "addition": {
+                    result = numberOne + numberTwo;
+                    break;
+                }
+                case "subtraction": {
+                    result = numberOne - numberTwo;
+                    break;
+                }
+                default: {
+                    result = null;
+                }
+            }
+            return result;
+        }
     }
 
-    @Override
-    public float division(float numberOne, float numberTwo) {
-        float division=numberOne / numberTwo;
-        return division;
-    }
-
-    @Override
-    public float addition(float numberOne, float numberTwo) {
-        float addition=numberOne + numberTwo;
-        return addition;
-    }
-
-    @Override
-    public float subtraction(float numberOne, float numberTwo) {
-        float subtraction=numberOne - numberTwo;
-        return subtraction;
-    }
-}

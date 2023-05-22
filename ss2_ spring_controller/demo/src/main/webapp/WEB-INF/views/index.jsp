@@ -30,7 +30,7 @@
 <body>
 <div style="width: 500px; height: auto; margin: 50px auto; text-align: center ; border: 1px solid gray; border-radius: 5px">
     <h1 style="margin-top: 5%">Sandwich Condiments</h1>
-    <form action="/show" method="post" style="text-align: left; margin-top: 5%;">
+    <form action="/spiceList" method="post" style="text-align: left; margin-top: 5%;">
         <div class="row">
             <div class="col-sm-6" style="margin-left: 28%; width: 42.3%">
                 <ul class="list-group">
