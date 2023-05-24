@@ -65,6 +65,7 @@ public class ProductRepository implements IProductRepository {
                 p.setName(productModel.getName());
                 p.setPrice(productModel.getPrice());
                 p.setDescribe(productModel.getDescribe());
+                break;
             }
         }
     }

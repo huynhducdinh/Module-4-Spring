@@ -46,11 +46,6 @@
 <div id="add">
     <form method="post" class="text_left" th:action="@{/update}" th:object="${productModel}">
         <div class="form-outline mb-4">
-            <input class="form-control" th:field="*{id}"/>
-            <label class="form-label"> ID Product</label>
-
-        </div>
-        <div class="form-outline mb-4">
             <input class="form-control" th:field="*{name}"/>
             <label class="form-label"> Name Product</label>
         </div>
