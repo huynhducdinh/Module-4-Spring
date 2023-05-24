@@ -33,7 +33,7 @@ public class ProductController {
     @PostMapping("/create")
     public String createProducts(@ModelAttribute("productModel")ProductModel productModel, RedirectAttributes redirect) {
       boolean check =  iProductService.save(productModel);
-        redirect.addFlashAttribute("check","Thêm mới thành công");
+        redirect.addFlashAttribute("check",check);
         return "redirect:/";
 //       Muốn về lại trang list thì dùm redirect:/
     }
@@ -51,8 +51,8 @@ public class ProductController {
         return "redirect:/";
     }
 
-    @GetMapping("/delete/{id}")
-    public String deleteProduct(@PathVariable Integer id) {
+    @GetMapping("/delete")
+    public String deleteProduct(@RequestParam("id") Integer id) {
         iProductService.delete(id);
         return "redirect:/";
     }
