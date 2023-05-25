@@ -13,7 +13,7 @@ public interface IProductRepository {
 //
     ProductModel findById(Integer id);
 //
-    void delete(Integer id);
+    boolean delete(Integer id);
 //
     List<ProductModel> search(String name);
 

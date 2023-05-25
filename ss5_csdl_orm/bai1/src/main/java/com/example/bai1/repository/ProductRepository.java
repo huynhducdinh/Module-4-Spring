@@ -38,11 +38,12 @@ public class ProductRepository implements IProductRepository {
     }
 
     @Override
-    public void delete(Integer id) {
+    public boolean delete(Integer id) {
         EntityTransaction entityTransaction = entityManager.getTransaction();
         entityTransaction.begin();
         entityManager.remove(findById(id));
         entityTransaction.commit();
+        return true;
     }
 
     @Override
