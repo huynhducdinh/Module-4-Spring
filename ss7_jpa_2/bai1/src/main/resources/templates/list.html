@@ -1,4 +1,4 @@
-<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<html xmlns:th="http://www.thymeleaf.org">
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:sweetalert2="http://www.thymeleaf.org/extras/sweet-alert2">
@@ -43,13 +43,18 @@
                         Add New
                     </button>
                 </a>
+                <a th:href="@{/category}">
+                    <button class="btn btn-secondary" style="border: 1px solid #DDDDDD;">
+                        List Category
+                    </button>
+                </a>
             </div>
 
         </div>
         <!--        <form class="d-flex" th:action="@{detail}" method="get" th:object="${productModel}">-->
-        <form method="get" class="d-flex" th:action="@{search}" th:object="${blogModelList}">
-            <input style="width: 15vw" class="form-control me-2" type="search" name="name"
-                   placeholder="Search by Name" aria-label="Search">
+        <form method="get" class="d-flex" th:action="@{search}" th:object="${blogModel}">
+            <input style="width: 15vw" class="form-control me-2" type="search" name="titles"
+                   placeholder="Search by Title" aria-label="Search">
             <button class="btn btn btn-primary" type="submit">Search</button>
         </form>
 
@@ -63,7 +68,7 @@
             <td style="font-size: 20px;color: black">Title</td>
             <!--        <td style="font-size: 20px;color: black">Content</td>-->
             <td style="font-size: 20px;color: black">Author</td>
-            <!--        <td style="font-size: 20px;color: black">CreateTime</td>-->
+                    <td style="font-size: 20px;color: black">Category</td>
             <!--        <td style="font-size: 20px;color: black">UpdateTime</td>-->
             <td colspan="3" style="font-size: 20px;color: black">Function</td>
 
@@ -73,7 +78,7 @@
             <th th:text="${blogModelList.titles}"></th>
             <!--        <th th:text="${blogModelList.contents}"></th>-->
             <th th:text="${blogModelList.author}"></th>
-            <!--        <th th:text="${blogModelList.dayCreate}"></th>-->
+                    <th th:text="${blogModelList.categoryModel.nameCategory}"></th>
             <!--        <th th:text="${blogModelList.dayUpdate}"></th>-->
             <th>
                 <a th:href="@{/update/{id}(id=${blogModelList.id})}">
@@ -83,16 +88,33 @@
                 <!--            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modalDelete"-->
                 <!--                    th:attr="onclick=|infoDelete(${blogModelList.id},'${blogModelList.titles}')|"-->
                 <!--                    th:text="Delete"></button>-->
-                <button class=" btn-del btn btn-danger" th:onclick="|deletes('${blogModelList.id}')|">Delete</button>
+                <button class=" btn-del btn btn-danger"  th:attr="onclick=|deletes('${blogModelList.id}','${blogModelList.titles}')|">Delete</button>
 
                 <a th:href="@{/detail/{id}(id=${blogModelList.id})}">
                     <button class="btn btn-primary">Detail</button>
                 </a>
             </th>
-
-
         </tr>
     </table>
+<!--    <div>-->
+<!--        <a th:href="@{'/'(page=${blogModelList.number -1}, search=${search})}" th:if="${blogModelList.hasPrevious()}">Previous</a>-->
+<!--        <span th:text="${blogModelList.number +1}"></span>/<span th:text="${blogModelList.totalPages}"></span>-->
+<!--        <a th:href="@{'/'(page=${blogModelList.number +1}, search=${search})}" th:if="${blogModelList.hasNext()}">Next</a>-->
+<!--    </div>-->
+
+    <nav aria-label="Page navigation example" >
+        <ul class="pagination justify-content-end ">
+            <li class="page-item " style="border: 1px solid #CCCCCC">
+                <a class="page-link" th:href="@{'/'(page=${blogModelList.number -1})}" th:if="${blogModelList.hasPrevious()}">Previous</a>
+            </li>
+<!--            <li style="border: 1px solid #CCCCCC" class="page-item" ><a class="page-link active" th:text="${pageNo}" th:href="@{/(page=${pageNo})}"><button class=" btn-btn-success"></button></a></li>-->
+            <li style="border: 1px solid #CCCCCC" class="page-item"><a class="page-link" th:text="${blogModelList.number +1}"><button class=" btn-btn-primary"></button></a></li>
+<!--            <li style="border: 1px solid #CCCCCC" class="page-item"><a class="page-link" th:text="${blogModelList.totalPages}"><button>2</button></a></li>-->
+            <li style="border: 1px solid #CCCCCC" class="page-item">
+                <a class="page-link" th:href="@{'/'(page=${blogModelList.number +1})}" th:if="${blogModelList.hasNext()}">Next</a>
+            </li>
+        </ul>
+    </nav>
 </div>
 <div class="modal fade" id="modalDelete" tabindex="-1" aria-labelledby="exampleModalLabel"
      aria-hidden="true">
@@ -121,32 +143,26 @@
         document.getElementById("id").value = id;
         document.getElementById("deleteName").innerText = name;
     }
-
 </script>
-<script th:inline="javascript">
-    function deletes(id) {
+    <script th:inline="javascript">
+
+        function deletes(id,titles) {
         swal({
             title: "Are you sure?",
-            text: "Do you want to remove the date id " + " " + id + " " + "?",
+            text: "Do you want to remove the date name " + " " +titles + " " + "?",
             icon: "warning",
             buttons: true,
             dangerMode: true,
-            timer: 5000,
+
         })
             .then((result) => {
-            //     if (result) {
-            //         window.location = '/delete/' + id
-            //         swal("Poof! Your imaginary file has been deleted!", {
-            //             icon: "success",
-            //         })
-            //     } else {
-                    swal("Time to think!");
-            //     }
+                if (result) {
+                    window.location = '/delete/' + id
+                } else {
+                    swal("Thank you for not deleting")
+                }
             });
     }
-    function  deleteBlog(){}
-
-
 
 </script>
 <!-- MDB -->
@@ -161,38 +177,86 @@
 <script src="jquery-3.4.1.min.js"></script>
 <script src="sweetalert2.all.min.js"></script>
 <script th:inline="javascript">
+
+    <!--    thêm mới-->
     function createBlog() {
         Swal.fire({
             icon: 'success',
             title: 'Successfully',
             text: 'Successfully added new!',
             confirmButtonText: 'Oke',
-            timer: 3000,
+            timer: 2000,
         });
     }
+
 
     function createBlog1() {
         Swal.fire({
             icon: 'error',
             title: 'Failure',
             text: 'Add new failure!',
-            confirmButtonText: 'Oke'
+            confirmButtonText: 'Oke',
+            timer: 2000,
+        });
+    }
+    // xoá
+    function deleteCategory1() {
+        swal({
+            title: "Delete Successfully!",
+            icon: "success",
+            button: "Oke",
+            timer: 2000,
+        });
+    }
+    // chỉnh sửa
+    function updateCategory() {
+        Swal.fire({
+            icon: 'success',
+            title: 'Successfully',
+            text: 'Successful editing!',
+            confirmButtonText: 'Oke',
+            timer: 2000,
+        });
+    }
+    function updateCategory1() {
+        Swal.fire({
+            icon: 'error',
+            title: 'Failure',
+            text: 'Edit failed!',
+            confirmButtonText: 'Oke',
+            timer: 2000,
         });
     }
 </script>
 <script th:inline="javascript">
-    let create = /*[[${mess}]]*/ true;
-    // let create1 =/*[[${mess}]]*/ false;
-    // let deletes1s=/*[[${href}]]*/ true;
-    if (create != null) {
-        if (create){
+    let createCategory = /*[[${mess}]]*/ true;
+    let deleteCategory =/*[[${check}]]*/ true;
+    let update=/*[[${flag}]]*/ true;
+    // thêm mới
+    if (createCategory != null) {
+        if (createCategory){
             createBlog();
         }else{
             createBlog1();
         }
     }
+    // xoá
+    if (deleteCategory){
+        deleteCategory1();
+    }
+    // update
+    if (update != null) {
+        if (update){
+            updateCategory();
+        }else{
+            updateCategory1();
+        }
+    }
+
 </script>
 </body>
 </html>
+
+
 
 

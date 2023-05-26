@@ -31,17 +31,18 @@ public class BlogController {
     }
 
     @PostMapping("/create")
-    public String createBlogs(@ModelAttribute("blogModel") BlogModel blogModel , RedirectAttributes attributes) {
+    public String createBlogs(@ModelAttribute("blogModel") BlogModel blogModel, RedirectAttributes attributes) {
         LocalDateTime create = LocalDateTime.now();
         blogModel.setDayCreate(create);
-       iBlogService.save(blogModel);
-       attributes.addFlashAttribute("mess","ADD");
-        return "redirect:/createBlog";
+        iBlogService.save(blogModel);
+        attributes.addFlashAttribute("mess", true);
+        return "redirect:/";
     }
 
-    @GetMapping("/delete")
-    public String deleteBlog(@RequestParam("id") Integer id) {
+    @GetMapping("/delete/{id}")
+    public String deleteBlog(@PathVariable("id") Integer id, RedirectAttributes attributes) {
         iBlogService.delete(id);
+        attributes.addFlashAttribute("href", true);
         return "redirect:/";
     }
 
@@ -54,13 +55,14 @@ public class BlogController {
 
     @GetMapping("/update/{id}")
     public String updateBlog(@PathVariable Integer id, Model model) {
-        BlogModel blogModel=iBlogService.findById(id);
-        model.addAttribute("blogModel",blogModel);
+        BlogModel blogModel = iBlogService.findById(id);
+        model.addAttribute("blogModel", blogModel);
         return "update";
     }
+
     @PostMapping("/update")
-    public String editBlog(@ModelAttribute("blogModel") BlogModel blogModel){
-        LocalDateTime update=LocalDateTime.now();
+    public String editBlog(@ModelAttribute("blogModel") BlogModel blogModel) {
+        LocalDateTime update = LocalDateTime.now();
         blogModel.setDayUpdate(update);
         iBlogService.save(blogModel);
         return "redirect:/";
