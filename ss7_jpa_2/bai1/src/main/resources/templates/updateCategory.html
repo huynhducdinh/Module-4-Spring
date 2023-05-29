@@ -40,7 +40,19 @@
       integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 
 <body>
-
+<nav class="navbar navbar-light bg-light" style="position: sticky;top:0;left: 0;right: 0">
+  <div class="container-fluid">
+    <div style="display: flex; margin: 8px;position: relative">
+      <div>
+        <a th:href="@{/categoryModel}">
+          <button class="btn btn-secondary" style="border: 1px solid #DDDDDD;">
+            Back
+          </button>
+        </a>
+      </div>
+    </div>
+  </div>
+</nav>
 <h3 style="text-align: center;margin-top:50px;color: red "> Update Category</h3>
 
 <div id="add">

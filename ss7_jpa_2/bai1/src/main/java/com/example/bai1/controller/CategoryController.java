@@ -3,6 +3,7 @@ package com.example.bai1.controller;
 import com.example.bai1.model.CategoryModel;
 import com.example.bai1.service.ICategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -15,9 +16,9 @@ public class CategoryController {
     @Autowired
     private ICategoryService iCategoryService;
 
-    @GetMapping("/category")
-    public String listCategory(Model model) {
-        List<CategoryModel> categoryModelList = iCategoryService.findAll();
+    @GetMapping("/categoryModel")
+    public String listCategory(@RequestParam(value = "page",defaultValue = "0")int page, Model model) {
+        Page<CategoryModel> categoryModelList = iCategoryService.findAll(page);
         model.addAttribute("categoryModelList", categoryModelList);
         return "listCategory";
     }

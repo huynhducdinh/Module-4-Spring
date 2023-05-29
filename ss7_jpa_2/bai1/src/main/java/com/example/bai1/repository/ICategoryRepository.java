@@ -11,9 +11,9 @@ import java.util.List;
 
 public interface ICategoryRepository  extends JpaRepository<CategoryModel,Integer> {
     List<CategoryModel> findAllByStatusIsFalse();
-    @Query(value = "update category set status= 1 where id= :id")
-    @Modifying
-    @Transactional
-    void deleteById(@Param("id")Integer id);
+//    @Query(value = "update category set status= 1 where id= :id")
+//    @Modifying
+//    @Transactional
+//    void deleteById(@Param("id")Integer id);
 
 }

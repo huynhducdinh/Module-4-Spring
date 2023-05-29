@@ -39,9 +39,9 @@ public class BlogController {
     }
 
     @GetMapping("/createBlog")
-    public String createBlog(Model model) {
+    public String createBlog(@RequestParam(value = "page",defaultValue = "0")int page, Model model) {
         model.addAttribute("blogModel", new BlogModel());
-        model.addAttribute("category", iCategoryService.findAll());
+        model.addAttribute("category", iCategoryService.findAll(page));
         return "create";
     }
 
@@ -69,9 +69,9 @@ public class BlogController {
     }
 
     @GetMapping("/update/{id}")
-    public String updateBlog(@PathVariable Integer id, Model model) {
+    public String updateBlog(@PathVariable Integer id,@RequestParam(value = "page",defaultValue = "0") int page, Model model) {
         BlogModel blogModel=iBlogService.findById(id);
-        model.addAttribute("category", iCategoryService.findAll());
+        model.addAttribute("category", iCategoryService.findAll(page));
         model.addAttribute("blogModel",blogModel);
         return "update";
     }
@@ -84,9 +84,10 @@ public class BlogController {
         return "redirect:/";
     }
     @GetMapping ("/search")
-    public String searchBolg(@RequestParam String titles ,Model model){
+    public String searchBolg(@RequestParam String titles ,Model model,@RequestParam(value = "page", defaultValue = "0") int page){
        List<BlogModel>blogModel= iBlogService.findAllByTitlesContaining(titles);
-        model.addAttribute("blogModel",blogModel);
+        model.addAttribute("blogModelList",blogModel);
+        model.addAttribute("titles",titles);
         return "list";
 
     }

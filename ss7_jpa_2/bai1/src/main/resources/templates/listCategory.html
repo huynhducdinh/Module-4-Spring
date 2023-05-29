@@ -91,6 +91,19 @@
 
         </tr>
     </table>
+    <nav aria-label="Page navigation example" >
+        <ul class="pagination justify-content-end ">
+            <li class="page-item " style="border: 1px solid #CCCCCC">
+                <a class="page-link" th:href="@{'/categoryModel'(page=${categoryModelList.number -1})}" th:if="${categoryModelList.hasPrevious()}">Previous</a>
+            </li>
+            <!--            <li style="border: 1px solid #CCCCCC" class="page-item" ><a class="page-link active" th:text="${pageNo}" th:href="@{/(page=${pageNo})}"><button class=" btn-btn-success"></button></a></li>-->
+            <li style="border: 1px solid #CCCCCC" class="page-item"><a class="page-link" th:text="${categoryModelList.number +1}"><button class=" btn-btn-primary"></button></a></li>
+            <!--            <li style="border: 1px solid #CCCCCC" class="page-item"><a class="page-link" th:text="${blogModelList.totalPages}"><button>2</button></a></li>-->
+            <li style="border: 1px solid #CCCCCC" class="page-item">
+                <a class="page-link" th:href="@{'/categoryModel'(page=${categoryModelList.number +1})}" th:if="${categoryModelList.hasNext()}">Next</a>
+            </li>
+        </ul>
+    </nav>
 </div>
 <div class="modal fade" id="modalDelete" tabindex="-1" aria-labelledby="exampleModalLabel"
      aria-hidden="true">
