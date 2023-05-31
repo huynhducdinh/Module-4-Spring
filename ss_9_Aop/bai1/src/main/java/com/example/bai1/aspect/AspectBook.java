@@ -7,9 +7,9 @@ import org.springframework.stereotype.Component;
 
 @Aspect
 @Component
-public class BookAspect {
-    @After("execution(* *..com.example.bai1.controlle.BookLoanAppController.*(..))")
-    public void  log(JoinPoint joinPoint){
-        System.out.printf(joinPoint.getSignature().getName());
+public class AspectBook {
+    @After(value = "execution(* com.example.bai1.controller.BorrowController.*(..))")
+    public void logBorrow (JoinPoint joinPoint){
+        System.out.println(joinPoint);
     }
 }

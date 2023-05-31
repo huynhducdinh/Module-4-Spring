@@ -42,13 +42,13 @@ public class BookController {
             }while (flag);
             Borrow borrow=new Borrow(random,true,book);
             iBorrowService.saveBook(borrow);
-            attributes.addFlashAttribute("mess","MÃ SÁCH BẠN MƯỢN: "+random);
+            attributes.addFlashAttribute("mess","Mã sách : "+random);
 
             return "redirect:/book";
         }
     }
-    @PostMapping("/giveBookBack")
-    public String giveBook(@RequestParam("codeName") Integer codeName, Model model, RedirectAttributes redirectAttributes){
+    @GetMapping("/giveBookBack/{codeName}")
+    public String giveBook(@PathVariable("codeName") Integer codeName, Model model, RedirectAttributes redirectAttributes){
         boolean check=iBorrowService.checkCodeName(codeName);
         if (check==false){
             return "error";

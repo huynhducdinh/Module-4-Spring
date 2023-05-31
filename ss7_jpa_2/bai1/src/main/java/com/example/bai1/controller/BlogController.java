@@ -50,7 +50,7 @@ public class BlogController {
         LocalDateTime create = LocalDateTime.now();
         blogModel.setDayCreate(create);
        iBlogService.save(blogModel);
-       attributes.addFlashAttribute("mess",true);
+      ( attributes.addFlashAttribute("mess",true);)
         return "redirect:/";
     }
 
