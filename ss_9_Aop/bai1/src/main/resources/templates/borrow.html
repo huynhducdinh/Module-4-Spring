@@ -36,115 +36,33 @@
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 </head>
 <body>
-<nav class="navbar navbar-light bg-light" style="position: sticky;top:0;left: 0;right: 0">
-    <div class="container-fluid">
-        <div style="display: flex; margin: 8px;position: relative">
-            <div>
-                <a th:href="@{/createBlog}">
-                    <button class="btn btn btn-success" style="border: 1px solid #DDDDDD;">
-                        Add New
-                    </button>
-                </a>
-                <a th:href="@{/categoryModel}">
-                    <button class="btn btn-secondary" style="border: 1px solid #DDDDDD;">
-                        List Category
-                    </button>
-                </a>
-            </div>
 
-        </div>
-
-            <form method="get" class="d-flex" th:action="@{search}" th:object="${blogModelList}">
-                <input style="width: 15vw" class="form-control me-2" type="search" name="titles"
-                       placeholder="Search by Title" aria-label="Search">
-                <button class="btn btn btn-primary" type="submit">Search</button>
-            </form>
-
-    </div>
-</nav>
-<h1 style="text-align: center;color: red">Blog</h1>
+<h1 style="text-align: center;color: red">Book</h1>
 <div style="margin: 0 auto;height: auto;width: 80%">
     <table class="table table-striped table-hover" style="border: 1px solid #CCCCCC">
         <tr>
             <td style="font-size: 20px;color: black">ID</td>
-            <td style="font-size: 20px;color: black">Title</td>
-            <!--        <td style="font-size: 20px;color: black">Content</td>-->
-            <td style="font-size: 20px;color: black">Author tho tho</td>
-            <td style="font-size: 20px;color: black">Category</td>
-            <!--        <td style="font-size: 20px;color: black">UpdateTime</td>-->
+            <td style="font-size: 20px;color: black">Tên sách</td>
+            <td style="font-size: 20px;color: black">Số lượng</td>
             <td colspan="3" style="font-size: 20px;color: black">Function</td>
 
         </tr>
-        <tr th:each="blogModelList : ${blogModelList}">
-            <th th:text="${blogModelList.id}"></th>
-            <th th:text="${blogModelList.titles}"></th>
-            <!--        <th th:text="${blogModelList.contents}"></th>-->
-            <th th:text="${blogModelList.author}"></th>
-            <th th:text="${blogModelList.categoryModel.nameCategory}"></th>
-            <!--        <th th:text="${blogModelList.dayUpdate}"></th>-->
+        <tr th:each="borrow : ${borrowList}">
+            <th th:text="${borrow.id}"></th>
+            <th th:text="${borrow.codeName}"></th>
+            <th th:text="${borrow.statusq}"></th>
             <th>
-                <a th:href="@{/update/{id}(id=${blogModelList.id})}">
-                    <button class="btn btn-warning">Update</button>
-                </a>
-
-                <!--            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modalDelete"-->
-                <!--                    th:attr="onclick=|infoDelete(${blogModelList.id},'${blogModelList.titles}')|"-->
-                <!--                    th:text="Delete"></button>-->
-                <button class=" btn-del btn btn-danger"
-                        th:attr="onclick=|deletes('${blogModelList.id}','${blogModelList.titles}')|">Delete
+                <button class=" btn-del btn btn-primary"
+                        th:attr="onclick=|deletes('${book.id}','${book.name}')|">Mượn Sách
                 </button>
-
-                <!--                <a th:href="@{/detail/{id}(id=${blogModelList.id})}">-->
-                <!--                    <button class="btn btn-primary">Detail</button>-->
-                <!--                </a>-->
-                <!--                <a th:href="@{/detail/{id}(id=${blogModelList.id})}">-->
-                <button class="btn btn-primary"
-                        th:attr="onclick=|detail('${blogModelList.id}','${blogModelList.titles}')|">Detail
-                </button>
-                </a>
             </th>
         </tr>
     </table>
 
 
-    <nav aria-label="Page navigation example">
-        <ul class="pagination justify-content-end ">
-            <li class="page-item " style="border: 1px solid #CCCCCC">
-                <a class="page-link" th:href="@{'/'(page=${blogModelList.number -1})}"
-                   th:if="${blogModelList.hasPrevious()}">Previous</a>
-            </li>
-            <!--                        <li style="border: 1px solid #CCCCCC" class="page-item active" ><a class="page-link active" th:text="${pageNo}" th:href="@{/(page=${pageNo})}"></a></li>-->
-            <li style="border: 1px solid #CCCCCC" class="page-item active"><a class="page-link" th:text="${blogModelList.number +1}"></a>
-            </li>
-            <li style="border: 1px solid #CCCCCC" class="page-item">
-                <a class="page-link" th:href="@{'/'(page=${blogModelList.number +1})}"
-                   th:if="${blogModelList.hasNext()}">Next</a>
-            </li>
-        </ul>
-    </nav>
+
 
 </div>
-<div class="modal fade" id="modalDelete" tabindex="-1" aria-labelledby="exampleModalLabel"
-     aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel"> Erase the name</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <form th:action="@{/delete}" method="get">
-                <div class="modal-body">
-                    <input hidden id="id" name="id">
-                    <span> Do you want to delete customers </span><span style="color: red"
-                                                                        id="deleteName"></span><span> name ?</span>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
-                        <button type="submit" class="btn btn-primary">YES</button>
-                    </div>
-                </div>
-            </form>
-        </div>
-    </div>
 
 </div>
 <script>
@@ -158,10 +76,10 @@
 </script>
 <script th:inline="javascript">
 
-    function deletes(id, titles) {
+    function deletes(id, name) {
         swal({
             title: "Are you sure?",
-            text: "Do you want to remove the date name " + " " + titles + " " + "?",
+            text: "Do you want to remove the date name " + " " + name + " " + "?",
             icon: "warning",
             buttons: true,
             dangerMode: true,
