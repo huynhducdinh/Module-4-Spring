@@ -7,10 +7,7 @@ import com.example.bai1.service.IBorrowService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
@@ -30,8 +27,8 @@ public class BookController {
         return "list";
     }
 
-    @GetMapping("/borrow")
-    public String borrowBook(@RequestParam("id") Integer id, RedirectAttributes redirectAttributes) {
+    @GetMapping("/borrow/{id}")
+    public String borrow(@PathVariable("id") Integer id, RedirectAttributes attributes) {
         Book book = iBookService.findById(id);
         boolean check = iBookService.save(book);
         if (check == false) {
@@ -45,15 +42,15 @@ public class BookController {
             }while (flag);
             Borrow borrow=new Borrow(random,true,book);
             iBorrowService.saveBook(borrow);
-            redirectAttributes.addAttribute("mess",true);
-            return "redirect:/";
+            attributes.addFlashAttribute("mess","MÃ SÁCH BẠN MƯỢN: "+random);
+
+            return "redirect:/book";
         }
     }
     @PostMapping("/giveBookBack")
     public String giveBook(@RequestParam("codeName") Integer codeName, Model model, RedirectAttributes redirectAttributes){
         boolean check=iBorrowService.checkCodeName(codeName);
         if (check==false){
-            model.addAttribute("mess","Sai mã rồi");
             return "error";
         }else {
             Borrow borrow=iBorrowService.getByCodeName(codeName);
@@ -64,7 +61,7 @@ public class BookController {
             book.setQuantity(quantity);
             iBookService.saveBook(book);
             redirectAttributes.addFlashAttribute("check",book.getName());
-            return "redirect:/";
+            return "redirect:/listBorrow";
         }
     }
 

@@ -36,12 +36,17 @@
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 </head>
 <body>
-
-<h1 style="text-align: center;color: red">Book</h1>
+<a th:href="@{book}">
+    <button class="btn btn btn-success" style="border: 1px solid #DDDDDD;">
+        Book
+    </button>
+</a>
+<h1 style="text-align: center;color: red">Đã mượn</h1>
 <div style="margin: 0 auto;height: auto;width: 80%">
     <table class="table table-striped table-hover" style="border: 1px solid #CCCCCC">
         <tr>
             <td style="font-size: 20px;color: black">ID</td>
+            <td style="font-size: 20px;color: black">Mã sách</td>
             <td style="font-size: 20px;color: black">Tên sách</td>
             <td style="font-size: 20px;color: black">Số lượng</td>
             <td colspan="3" style="font-size: 20px;color: black">Function</td>
@@ -50,10 +55,11 @@
         <tr th:each="borrow : ${borrowList}">
             <th th:text="${borrow.id}"></th>
             <th th:text="${borrow.codeName}"></th>
-            <th th:text="${borrow.statusq}"></th>
+            <th th:text="${borrow.book.name}"></th>
+            <th th:text="${borrow.status}"></th>
             <th>
                 <button class=" btn-del btn btn-primary"
-                        th:attr="onclick=|deletes('${book.id}','${book.name}')|">Mượn Sách
+                        th:attr="onclick=|borrow('${borrow.codeName}')|">Trả Sách
                 </button>
             </th>
         </tr>
@@ -76,40 +82,33 @@
 </script>
 <script th:inline="javascript">
 
-    function deletes(id, name) {
-        swal({
-            title: "Are you sure?",
-            text: "Do you want to remove the date name " + " " + name + " " + "?",
-            icon: "warning",
-            buttons: true,
-            dangerMode: true,
-
+    function borrow( codeName) {
+        swal("Nhập mã sách:", {
+            content: "input",
         })
-            .then((result) => {
-                if (result) {
-                    window.location = '/delete/' + id
-                } else {
-                    swal("Thank you for not deleting")
-                }
+            .then((codeName) => {
+                // swal(`You typed: ${code}`);
+                window.location = '/giveBookBack/' + codeName
+
             });
     }
 
-    async function detail(id, titles) {
-        Swal.fire({
-            text: 'Would you like to see the details of this title: ' + titles + "",
-            icon: 'question',
-            showCancelButton: true,
-            cancelButtonColor: '#CCCCCC',
-            confirmButtonColor: '#3366FF',
-            confirmButtonText: 'May I try it out ?'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                Swal.fire(
-                    window.location.href = '/detail/' + id
-                )
-            }
-        })
-    }
+    // async function detail(id, titles) {
+    //     Swal.fire({
+    //         text: 'Would you like to see the details of this title: ' + titles + "",
+    //         icon: 'question',
+    //         showCancelButton: true,
+    //         cancelButtonColor: '#CCCCCC',
+    //         confirmButtonColor: '#3366FF',
+    //         confirmButtonText: 'May I try it out ?'
+    //     }).then((result) => {
+    //         if (result.isConfirmed) {
+    //             Swal.fire(
+    //                 window.location.href = '/detail/' + id
+    //             )
+    //         }
+    //     })
+    // }
 
 </script>
 <!-- MDB -->

@@ -36,7 +36,11 @@
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 </head>
 <body>
-
+<a th:href="@{listBorrow}">
+    <button class="btn btn btn-success" style="border: 1px solid #DDDDDD;">
+        Book
+    </button>
+</a>
 <h1 style="text-align: center;color: red">Book</h1>
 <div style="margin: 0 auto;height: auto;width: 80%">
     <table class="table table-striped table-hover" style="border: 1px solid #CCCCCC">
@@ -52,34 +56,27 @@
             <th th:text="${book.name}"></th>
             <th th:text="${book.quantity}"></th>
             <th>
+<!--                <a th:href="@{/borrow/{id}(id=${book.id})}">-->
+<!--                    <button class="btn btn-warning">Update</button>-->
                 <button class=" btn-del btn btn-primary"
-                        th:attr="onclick=|deletes('${book.id}','${book.name}')|">Mượn Sách
+                        th:attr="onclick=|borrow('${book.id}','${book.name}')|">Mượn Sách
                 </button>
+<!--                </a>-->
             </th>
         </tr>
     </table>
-
-
-
-
+    <h3 th:text="${mess}" style="color: #4cae4c"></h3>
 </div>
 
-</div>
 <script>
-    // import React from 'react';
-    //
-    // function App() {
-    //     const [text, setText] = React.useState('Hello World');
-    //     return <h1>{text}</h1>;
-    // }
 
 </script>
 <script th:inline="javascript">
 
-    function deletes(id, name) {
+    function borrow(id, name) {
         swal({
-            title: "Are you sure?",
-            text: "Do you want to remove the date name " + " " + name + " " + "?",
+            title: "Thư Viện Sách",
+            text: "Bạn có muốn mượn sách có tên " + " " + name + "" + "",
             icon: "warning",
             buttons: true,
             dangerMode: true,
@@ -87,29 +84,44 @@
         })
             .then((result) => {
                 if (result) {
-                    window.location = '/delete/' + id
+                    window.location = '/borrow/' + id
                 } else {
                     swal("Thank you for not deleting")
                 }
             });
     }
+    //     Swal.fire({
+    //         text: 'Would you like to see the details of this title: ' + name + "",
+    //         icon: 'question',
+    //
+    //         cancelButtonColor: '#CCCCCC',
+    //         confirmButtonColor: '#3366FF',
+    //         confirmButtonText: 'Oke'
+    //     }).then((result) => {
+    //         if (result) {
+    //             Swal(
+    //                 window.location.href = '/borrow/'+id
+    //             )
+    //         }
+    //     })
+    // }
 
-    async function detail(id, titles) {
-        Swal.fire({
-            text: 'Would you like to see the details of this title: ' + titles + "",
-            icon: 'question',
-            showCancelButton: true,
-            cancelButtonColor: '#CCCCCC',
-            confirmButtonColor: '#3366FF',
-            confirmButtonText: 'May I try it out ?'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                Swal.fire(
-                    window.location.href = '/detail/' + id
-                )
-            }
-        })
-    }
+    // async function detail(id, titles) {
+    //     Swal.fire({
+    //         text: 'Would you like to see the details of this title: ' + titles + "",
+    //         icon: 'question',
+    //         showCancelButton: true,
+    //         cancelButtonColor: '#CCCCCC',
+    //         confirmButtonColor: '#3366FF',
+    //         confirmButtonText: 'May I try it out ?'
+    //     }).then((result) => {
+    //         if (result.isConfirmed) {
+    //             Swal.fire(
+    //                 window.location.href = '/detail/' + id
+    //             )
+    //         }
+    //     })
+    // }
 
 </script>
 <!-- MDB -->
@@ -126,7 +138,7 @@
 <script th:inline="javascript">
 
     <!--    thêm mới-->
-    function createBlog() {
+    function createBlog(codename) {
         Swal.fire({
             icon: 'success',
             title: 'Successfully',
@@ -179,7 +191,7 @@
     }
 </script>
 <script th:inline="javascript">
-    let createCategory = /*[[${mess}]]*/ true;
+    // let createCategory = /*[[${mess}]]*/ true;
     let deleteCategory =/*[[${check}]]*/ true;
     let update =/*[[${flag}]]*/ true;
     // thêm mới
