@@ -10,7 +10,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Map;
+
 @Controller
+@SessionAttributes("cart")
 @RequestMapping("shopping-cart")
 public class CartController {
     @Autowired
@@ -19,9 +22,11 @@ public class CartController {
     ICartService iCartService;
 
     @GetMapping("/views")
-    public String getAllList( Model model) {
-        model.addAttribute("cart",iCartService.getAll());
+    public String getAllList(@SessionAttribute("cart") Map<Integer,Cart> list, Model model) {
+        model.addAttribute("cart",list);
+        model.addAttribute("cartMap",iCartService.getAll());
         model.addAttribute("totalSum",iCartService.getAmount());
+
         return "card";
 
     }

@@ -46,7 +46,7 @@
               <div class="sizes mt-5">
 <!--                <h6 class="text-uppercase">Size</h6> <label class="radio"> <input type="radio" name="size" value="S" checked> <span>S</span> </label> <label class="radio"> <input type="radio" name="size" value="M"> <span>M</span> </label> <label class="radio"> <input type="radio" name="size" value="L"> <span>L</span> </label> </label>-->
               </div>
-              <div class="cart mt-4 align-items-center"><a th:href="@{/shopping-cart/add/{id}(id=${productShopp.id})}"><button class="btn btn-danger text-uppercase mr-2 px-4">Add to cart</button></a>  </div>
+              <div class="cart mt-4 align-items-center"><a class="btn btn-primary" th:href="@{/shopping-cart/add/{id}(id=${productShopp.id})}"><i class="fa-solid fa-bag-shopping"></i> All to Cart</a>  </div>
             </div>
           </div>
         </div>

@@ -1,4 +1,4 @@
-<html xmlns:th="http://www.thymeleaf.org" xmlns:pth="http://www.w3.org/1999/html">
+<html xmlns:th="http://www.thymeleaf.org" >
 <head>
     <title>Create</title>
 
@@ -35,9 +35,7 @@
                 <th>&nbsp;</th>
                 </thead>
                 <tbody>
-
-
-                    <tr class="align-middle alert border-bottom" role="alert" th:each="cartList:${cart}">
+                    <tr class="align-middle alert border-bottom" role="alert" th:each="cartList:${cartMap}">
                         <form th:action="@{/shopping-cart/update}" method="post">
                         <input type="hidden" name="id" th:value="${cartList.id}">
                         <td>
@@ -74,8 +72,9 @@
                     </tr>
                 </tbody>
             </table>
-            <a style="text-decoration: none" th:href="@{/}"><i class="fa fa-long-arrow-left"></i> <span class="ml-1">Back Home</span></a>
-            <span style="color: #21cf95 ;margin-left: 70%">Tổng tiền: </span> <span> <span th:text="${totalSum}">  </span> đ</span>
+            <a class="btn" style="text-decoration: none" th:href="@{/}"><i class="fa fa-long-arrow-left"></i> <span class="ml-1">Back Home</span></a>
+            <a  class="btn btn-danger" style="text-decoration: none;margin-left: 3%" th:href="@{/shopping-cart/clear}"> <span  class="ml-1"> <i class="fa-solid fa-trash"></i> Erase it all</span></a>
+            <span style="color: #21cf95 ;margin-left: 75%">Tổng tiền: </span> <span> <span th:text="${totalSum}">  </span> đ</span>
         </div>
     </div>
 </div>

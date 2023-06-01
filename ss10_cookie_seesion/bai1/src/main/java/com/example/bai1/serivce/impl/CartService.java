@@ -31,16 +31,16 @@ public class CartService implements ICartService {
        cartMap.remove(id);
    }
     @Override
+    public void clear(){
+        cartMap.clear();
+    }
+    @Override
    public Cart update(Integer idProduct, Integer quantity){
        Cart cart=cartMap.get(idProduct);
        cart.setQuantity(quantity);
         return cart;
    }
-
-    @Override
-    public void clear(){
-       cartMap.clear();
-    }
+   
     @Override
     public Collection<Cart> getAll(){
        return cartMap.values();

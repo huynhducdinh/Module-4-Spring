@@ -1,7 +1,6 @@
 package com.example.bai1.model;
 
 public class Cart {
-
     private  Integer id;
     private String name;
     private  double price;
