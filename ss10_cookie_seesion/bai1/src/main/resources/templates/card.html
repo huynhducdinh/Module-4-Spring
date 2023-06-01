@@ -27,8 +27,8 @@
         <div class="table-wrap" style="border: 1px solid #21cf95">
             <table class="table table-responsive table-borderless table-hover">
                 <thead style="background-color: #21cf95">
-                <th>Ảnh</th>
                 <th>Product</th>
+                <th>Ảnh</th>
                 <th>Price(VND)</th>
                 <th>Quantity</th>
                 <th>total(VND)</th>
@@ -41,16 +41,16 @@
                         <form th:action="@{/shopping-cart/update}" method="post">
                         <input type="hidden" name="id" th:value="${cartList.id}">
                         <td>
-                            <img class="pic"
-                                 th:src="${cartList.image}" width="50"
-                                 alt="">
-                        </td>
-                        <td>
                             <div>
                                 <p class="m-0 fw-bold" th:text="${cartList.name}"></p>
 
                             </div>
                         </td>
+                            <td>
+                                <img class="pic"
+                                     th:src="${cartList.image}" width="40"
+                                     alt="">
+                            </td>
                         <td>
                             <div class="fw-600"><p class="m-0 text-muted" th:text="${cartList.price}"></p></div>
                         </td>

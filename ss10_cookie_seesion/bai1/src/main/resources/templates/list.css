@@ -1,69 +1,77 @@
-body {
-    background: #0d6efd
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
 }
-
-.height-100 {
-    height: 100vh
+body{
+    background: linear-gradient(to top,rgb(253, 213, 152) 10%,gold 150%) no-repeat;
+    height: 710px;
 }
-
-.card {
-    width: 100%;
+.results{
+    font-weight: 600;
+}
+select{
     border: none;
-    height: 250px;
-    max-width: 380px;
-    overflow: hidden;
-    position: relative;
-    display: flex;
-    cursor:pointer;
-    justify-content: center;
-    transition: all ease 0.4s
+    outline: none;
+    padding: 0px 4px;
+    cursor: pointer;
+    background: inherit;
+}
+.card{
+    border: none;
+    cursor: pointer;
+}
+.card:hover{
+    transform: scale(1.08);
+    transition: all 0.4s ease-in-out;
+}
+img{
+    background-color: #fdf8f4;
+    width: 150px;
+    height: 220px;
+    object-fit: contain;
+    padding-top: 10px;
+}
+.card-body{
+    padding: 0.5rem;
+    padding-top: 0.7rem;
+    padding-right: 0.2rem;
+}
+.fa-heart{
+    font-size: 1.2rem;
+}
+.h6{
+    margin: 0;
+}
+.btn{
+    padding-top: 0  ;
+}
+.btn:hover{
+    color: #fdaa4b;
+}
+div.text-muted{
+    font-size: 0.9rem;
 }
 
-.card img {
-    transition: all ease 0.4s
+@media(max-width:372px){
+    .results{
+        font-size: 0.9rem;
+    }
 }
-
-.card:hover img {
-    margin-top: -80px
+@media(max-width:330px){
+    .results{
+        font-size: 0.85rem;
+    }
 }
-
-.card .content {
-    width: 100%;
-    background: #fff;
-    position: absolute;
-    bottom: -60%;
-    margin-left: -8px;
-    transition: all ease 0.5s;
-    border-radius: 4px;
-    box-shadow: 0px -3px 4px rgba(10, 10, 10, 0.09)
+@media(min-height: 700px){
+    body{
+        height: 100vh;
+    }
 }
-
-.card .content .category {
-    font-size: 17px;
-    font-weight: 600
-}
-
-.card .content .price {
-    font-size: 17px;
-    font-weight: 500;
-    color: #0d6efd
-}
-
-.card .content p {
-    font-weight: 500;
-    font-size: 12px
-}
-
-.card:hover .content {
-    bottom: 0%
-}
-
-.buttons button {
-    border-radius: 1px;
-    margin-bottom: 10px;
-    transition: all ease 0.3s
-}
-
-.content {
-    padding: 10px
+@media(max-width:768px){
+    body{
+        height: 100%;
+    }
 }
