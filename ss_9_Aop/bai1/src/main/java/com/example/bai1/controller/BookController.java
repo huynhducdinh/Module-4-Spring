@@ -18,7 +18,7 @@ public class BookController {
     @Autowired
     private IBookService iBookService;
     @Autowired
-    IBorrowService iBorrowService;
+    private IBorrowService iBorrowService;
 
     @GetMapping("/book")
     public String listBook(Model model) {
@@ -28,41 +28,30 @@ public class BookController {
     }
 
     @GetMapping("/borrow/{id}")
-    public String borrow(@PathVariable("id") Integer id, RedirectAttributes attributes) {
-        Book book = iBookService.findById(id);
-        boolean check = iBookService.save(book);
-        if (check == false) {
-            return "error";
-        } else {
-            int random;
-            boolean flag;
-            do {
-                random = ThreadLocalRandom.current().nextInt(10000, 999999);
-                flag = iBorrowService.checkCodeName(random);
-            }while (flag);
-            Borrow borrow=new Borrow(random,true,book);
-            iBorrowService.saveBook(borrow);
-            attributes.addFlashAttribute("mess","Mã sách : "+random);
-
-            return "redirect:/book";
-        }
+    public String borrow(@PathVariable("id") Integer id, Model model, RedirectAttributes attributes) {
+        Book book1 = iBookService.findById(id);
+        book1.setQuantity(book1.getQuantity() - 1);
+        iBookService.save(book1);
+        int codeName;
+        List<Borrow> borrows = iBorrowService.findAll();
+        codeName = iBorrowService.checkCode(borrows);
+        Borrow borrow1 = new Borrow(codeName, book1);
+        iBorrowService.save(borrow1);
+        model.addAttribute("rentCode", borrow1.getCodeName());
+        attributes.addFlashAttribute("mess", "Mã sách : " + borrow1.getCodeName());
+        return "redirect:/book";
     }
+
     @GetMapping("/giveBookBack/{codeName}")
-    public String giveBook(@PathVariable("codeName") Integer codeName, Model model, RedirectAttributes redirectAttributes){
-        boolean check=iBorrowService.checkCodeName(codeName);
-        if (check==false){
-            return "error";
-        }else {
-            Borrow borrow=iBorrowService.getByCodeName(codeName);
-            borrow.setStatus(false);
-            iBorrowService.saveBook(borrow);
-            Book book=iBookService.findById(borrow.getBook().getId());
-            int quantity = book.getQuantity() + 1;
-            book.setQuantity(quantity);
-            iBookService.saveBook(book);
-            redirectAttributes.addFlashAttribute("check",book.getName());
-            return "redirect:/listBorrow";
-        }
+    public String giveBook(@PathVariable("codeName") Integer codeName, RedirectAttributes redirectAttributes) {
+        Borrow bookRenting = iBorrowService.checkCodeName(codeName);
+        Book book = bookRenting.getBook();
+        book.setQuantity(book.getQuantity() + 1);
+        iBookService.save(book);
+        iBorrowService.getByCodeName(codeName);
+        redirectAttributes.addFlashAttribute("check", book.getName());
+        return "redirect:/listBorrow";
+
     }
 
     @ExceptionHandler(Exception.class)

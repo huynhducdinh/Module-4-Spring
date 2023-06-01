@@ -8,7 +8,7 @@ public class Borrow {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private Integer codeName;
-    private  boolean status;
+    private  boolean status =false ;
     @OneToOne
     @JoinColumn(name = "id_book")
     private Book book;
@@ -26,6 +26,11 @@ public class Borrow {
     public Borrow(Integer codeName, boolean status, Book book) {
         this.codeName = codeName;
         this.status = status;
+        this.book = book;
+    }
+
+    public Borrow(Integer codeName, Book book) {
+        this.codeName = codeName;
         this.book = book;
     }
 

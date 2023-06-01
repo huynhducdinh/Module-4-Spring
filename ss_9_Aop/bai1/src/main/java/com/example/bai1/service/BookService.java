@@ -1,6 +1,7 @@
 package com.example.bai1.service;
 
 import com.example.bai1.model.Book;
+import com.example.bai1.model.Borrow;
 import com.example.bai1.repository.IBookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,13 +24,14 @@ public class BookService implements  IBookService {
 
     @Override
     public void saveBook(Book book) {
+
         iBookRepository.save(book);
 
     }
 
     @Override
     public boolean save(Book book) {
-        int quantity= book.getQuantity()-1;
+        int quantity= book.getQuantity();
         if (quantity<0){
             return false;
         }
@@ -37,4 +39,5 @@ public class BookService implements  IBookService {
         iBookRepository.save(book);
         return true;
     }
+
 }

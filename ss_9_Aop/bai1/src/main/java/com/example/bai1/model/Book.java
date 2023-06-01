@@ -45,4 +45,6 @@ public class Book {
     public void setQuantity(Integer quantity) {
         this.quantity = quantity;
     }
+
+
 }

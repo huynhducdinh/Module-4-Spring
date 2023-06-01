@@ -49,8 +49,7 @@ public class BlogController {
     public String createBlogs(@ModelAttribute("blogModel") BlogModel blogModel , RedirectAttributes attributes) {
         LocalDateTime create = LocalDateTime.now();
         blogModel.setDayCreate(create);
-       iBlogService.save(blogModel);
-      ( attributes.addFlashAttribute("mess",true);)
+       iBlogService.save(blogModel);( attributes.addFlashAttribute("mess",true);
         return "redirect:/";
     }
 
