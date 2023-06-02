@@ -18,7 +18,7 @@ public interface ICartService {
 
     Collection<Cart> getAll();
 
-    Integer getCount();
+    long getCount();
 
     double getAmount();
 

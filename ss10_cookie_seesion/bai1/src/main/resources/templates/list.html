@@ -221,8 +221,16 @@
                 </li>
             </ul>
         </div>
+        <div style="margin-left: -50%">
+        <a style="text-decoration: none" th:href="@{/shopping-cart/views}"><i style="margin-left: -50%;color: black" class="fa-solid fa-cart-shopping"></i>
+            <span>
+           <sup style="font-size: 80%;margin-left: -13%" th:text="${'('+count+')'}"></sup>
+            </span>
+        </a>
+        </div>
     </nav>
 </div>
+<!--<p th:text="${count}"></p>-->
     <div class="container mt-5 mb-5">
         <div class="row g-2">
             <div class="col-md-3 d-flex justify-content-center" th:each="productShopp:${productShoppList}">

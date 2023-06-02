@@ -41,9 +41,9 @@ public class CartController {
             cart.setPrice(productShopp.getPrice());
             cart.setImage(productShopp.getImage());
             cart.setQuantity(1);
-            iCartService.add(cart);
+           iCartService.add(cart);
         }
-        return "redirect:/shopping-cart/views";
+        return "redirect:/";
     }
     @GetMapping("delete/{id}")
     public String deleteCart(@PathVariable("id")Integer id){
