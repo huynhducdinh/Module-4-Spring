@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.0.js" integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM="
+            crossorigin="anonymous"></script>
+</head>
+<body>
+
+
+<div>
+    <table id="tableBolg">
+        <tr>
+            <th>ID</th>
+            <th>Title</th>
+            <th>Author tho</th>
+            <th>Category</th>
+        </tr>
+    </table>
+</div>
+<script>
+    $(document).ready(function (){
+        $.ajax({
+            headers:{
+                'accept':'application/json',
+                'Content-Type':'application/json'
+            },
+            url:'http://localhost:8080/api/blog/blog',
+            type:"GET",
+            success:function (data) {
+                let table=document.getElementById("tableBolg");
+                for (let i=0;i<data.length;i++){
+                    let row=table.insertRow(i+1);
+                    let id=row.insertCell(0)
+                    let title=row.insertCell(1)
+                    let authorTho=row.insertCell(2)
+                    let category=row.insertCell(3)
+                    id.innerHTML=data[i].id;
+                    title.innerHTML=data[i].titles;
+                    authorTho.authorTho=data[i].author;
+                    category.innerHTML=data[i].categoryModel.nameCategory;
+                    console.log(data[i]);
+                }
+            },
+            error:function (data){
+
+            }
+            })
+    });
+</script>
+</body>
+</html>

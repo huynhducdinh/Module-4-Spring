@@ -25,4 +25,7 @@ public interface IBlogRepository extends JpaRepository<BlogModel, Integer> {
 //
 //    Page<BlogModel> getAllPage(Integer page);
     List<BlogModel> findAllByCategoryModel(CategoryModel categoryModel);
+
+    @Query(value = "SELECT b from BlogModel AS  b where b.titles like concat('%',:titles,'%') ")
+    Page<BlogModel>findCategory(@Param("titles")String titles,Pageable pageable);
 }

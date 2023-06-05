@@ -5,6 +5,7 @@ import com.example.bai1.service.IBlogService;
 import com.example.bai1.service.ICategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
@@ -32,32 +33,32 @@ public class BlogController {
 //    }
 
     @GetMapping("/")
-    public String showListBlog(Model model,@RequestParam(value = "page",defaultValue = "0")int page){
-        Page<BlogModel>blogModelList=iBlogService.findAll( page);
-        model.addAttribute("blogModelList",blogModelList);
+    public String showListBlog(Model model, @RequestParam(value = "page", defaultValue = "0") int page) {
+        Page<BlogModel> blogModelList = iBlogService.findAll(page);
+        model.addAttribute("blogModelList", blogModelList);
         return "list";
     }
 
     @GetMapping("/createBlog")
-    public String createBlog(@RequestParam(value = "page",defaultValue = "0")int page, Model model) {
+    public String createBlog(@RequestParam(value = "page", defaultValue = "0") int page, Model model) {
         model.addAttribute("blogModel", new BlogModel());
         model.addAttribute("category", iCategoryService.findAll(page));
         return "create";
     }
 
     @PostMapping("/create")
-    public String createBlogs(@ModelAttribute("blogModel") BlogModel blogModel , RedirectAttributes attributes) {
+    public String createBlogs(@ModelAttribute("blogModel") BlogModel blogModel, RedirectAttributes attributes) {
         LocalDateTime create = LocalDateTime.now();
         blogModel.setDayCreate(create);
-       iBlogService.save(blogModel);
-        attributes.addFlashAttribute("mess",true);
+        iBlogService.save(blogModel);
+        attributes.addFlashAttribute("mess", true);
         return "redirect:/";
     }
 
     @GetMapping("/delete/{id}")
-    public String deleteBlog(@PathVariable("id") Integer id,RedirectAttributes attributes) {
+    public String deleteBlog(@PathVariable("id") Integer id, RedirectAttributes attributes) {
         iBlogService.delete(id);
-        attributes.addFlashAttribute("check",true);
+        attributes.addFlashAttribute("check", true);
         return "redirect:/";
     }
 
@@ -69,25 +70,28 @@ public class BlogController {
     }
 
     @GetMapping("/update/{id}")
-    public String updateBlog(@PathVariable Integer id,@RequestParam(value = "page",defaultValue = "0") int page, Model model) {
-        BlogModel blogModel=iBlogService.findById(id);
+    public String updateBlog(@PathVariable Integer id, @RequestParam(value = "page", defaultValue = "0") int page, Model model) {
+        BlogModel blogModel = iBlogService.findById(id);
         model.addAttribute("category", iCategoryService.findAll(page));
-        model.addAttribute("blogModel",blogModel);
+        model.addAttribute("blogModel", blogModel);
         return "update";
     }
+
     @PostMapping("/update")
-    public String editBlog(@ModelAttribute("blogModel") BlogModel blogModel,RedirectAttributes attributes){
-        LocalDateTime update=LocalDateTime.now();
+    public String editBlog(@ModelAttribute("blogModel") BlogModel blogModel, RedirectAttributes attributes) {
+        LocalDateTime update = LocalDateTime.now();
         blogModel.setDayUpdate(update);
         iBlogService.save(blogModel);
-        attributes.addFlashAttribute("flag",true);
+        attributes.addFlashAttribute("flag", true);
         return "redirect:/";
     }
-    @GetMapping ("/search")
-    public String searchBolg(@RequestParam String titles ,Model model,@RequestParam(value = "page", defaultValue = "0") int page){
-       List<BlogModel>blogModel= iBlogService.findAllByTitlesContaining(titles);
-        model.addAttribute("blogModelList",blogModel);
-        model.addAttribute("titles",titles);
+
+    @GetMapping("/search")
+    public String searchBolg(@RequestParam("titles") String titles, Model model, @RequestParam(value = "page", defaultValue = "0") Integer page) {
+        Pageable pageable = PageRequest.of(page, 2);
+        Page<BlogModel> blogModelList = iBlogService.searchBlog(titles,page);
+        model.addAttribute("blogModelList", blogModelList);
+        model.addAttribute("titles", titles);
         return "list";
 
     }

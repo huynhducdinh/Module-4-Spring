@@ -18,4 +18,5 @@ public interface IBlogService {
 
     List<BlogModel> findAll();
     List<BlogModel> findAllByCategoryModel(CategoryModel categoryModel);
+    Page<BlogModel> searchBlog(String title,Integer page);
 }

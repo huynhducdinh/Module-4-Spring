@@ -18,7 +18,7 @@ public class BlogRestController {
     @Autowired
     private IBlogService iBlogService;
     @Autowired
-    ICategoryService iCategoryService;
+   private ICategoryService iCategoryService;
 
     @GetMapping("/blog")
     public ResponseEntity<List<BlogModel>> getAllBlog(){
@@ -29,12 +29,12 @@ public class BlogRestController {
         return new ResponseEntity<>(iCategoryService.findAll(),HttpStatus.OK);
    }
    @GetMapping("{id}/list")
-    public ResponseEntity<List<BlogModel>> viewCategory(@PathVariable("id") Integer id){
+    public ResponseEntity<List<BlogModel>> viewListBlogByCategory(@PathVariable("id") Integer id){
         CategoryModel categoryModel=iCategoryService.findById(id);
       return  new ResponseEntity<>(iBlogService.findAllByCategoryModel(categoryModel),HttpStatus.OK);
    }
     @GetMapping("{id}/blog")
-    public ResponseEntity<BlogModel> view(@PathVariable("id") Integer id){
+    public ResponseEntity<BlogModel> detailBlog(@PathVariable("id") Integer id){
         iBlogService.findById(id);
         return new  ResponseEntity<>( HttpStatus.OK);
 
