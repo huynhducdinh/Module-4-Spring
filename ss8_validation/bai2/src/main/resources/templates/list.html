@@ -14,6 +14,8 @@
         href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
         rel="stylesheet"
 />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
 <!-- Google Fonts -->
 <link
         href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
@@ -75,7 +77,7 @@
 <!-- MDB -->
 <script
         type="text/javascript"
-        src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.2.0/mdb.min.js"
+        src="cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"
 ></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
@@ -83,85 +85,111 @@
 <script src="https://kit.fontawesome.com/yourcode.js"></script>
 <script src="jquery-3.4.1.min.js"></script>
 <script src="sweetalert2.all.min.js"></script>
-<script th:inline="javascript">
+<!--<script th:inline="javascript">-->
 
   <!--    thêm mới-->
-  function createBlog() {
-    Swal.fire({
-      icon: 'success',
-      title: 'Successfully',
-      text: 'Successfully added new!',
-      confirmButtonText: 'Oke',
-      timer: 2000,
-    });
+<!--  function createBlog() {-->
+<!--    Swal.fire({-->
+<!--      icon: 'success',-->
+<!--      title: 'Successfully',-->
+<!--      text: 'Successfully added new!',-->
+<!--      confirmButtonText: 'Oke',-->
+<!--      timer: 2000,-->
+<!--    });-->
+<!--  }-->
+
+
+<!--  function createBlog1() {-->
+<!--    Swal.fire({-->
+<!--      icon: 'error',-->
+<!--      title: 'Failure',-->
+<!--      text: 'Add new failure!',-->
+<!--      confirmButtonText: 'Oke',-->
+<!--      timer: 2000,-->
+<!--    });-->
+<!--  }-->
+
+<!--  // xoá-->
+<!--  function deleteCategory1() {-->
+<!--    swal({-->
+<!--      title: "Delete Successfully!",-->
+<!--      icon: "success",-->
+<!--      button: "Oke",-->
+<!--      timer: 2000,-->
+<!--    });-->
+<!--  }-->
+
+<!--  // chỉnh sửa-->
+<!--  function updateCategory() {-->
+<!--    Swal.fire({-->
+<!--      icon: 'success',-->
+<!--      title: 'Successfully',-->
+<!--      text: 'Successful editing!',-->
+<!--      confirmButtonText: 'Oke',-->
+<!--      timer: 2000,-->
+<!--    });-->
+<!--  }-->
+
+<!--  function updateCategory1() {-->
+<!--    Swal.fire({-->
+<!--      icon: 'error',-->
+<!--      title: 'Failure',-->
+<!--      text: 'Edit failed!',-->
+<!--      confirmButtonText: 'Oke',-->
+<!--      timer: 2000,-->
+<!--    });-->
+<!--  }-->
+<!--</script>-->
+<!--<script th:inline="javascript">-->
+<!--  let createCategory = /*[[${mess}]]*/ true;-->
+<!--  let deleteCategory =/*[[${check}]]*/ true;-->
+<!--  let update =/*[[${flag}]]*/ true;-->
+<!--  // thêm mới-->
+<!--  if (createCategory != null) {-->
+<!--    if (createCategory) {-->
+<!--      createBlog();-->
+<!--    } else {-->
+<!--      createBlog1();-->
+<!--    }-->
+<!--  }-->
+<!--  // xoá-->
+<!--  if (deleteCategory) {-->
+<!--    deleteCategory1();-->
+<!--  }-->
+<!--  // update-->
+<!--  if (update != null) {-->
+<!--    if (update) {-->
+<!--      updateCategory();-->
+<!--    } else {-->
+<!--      updateCategory1();-->
+<!--    }-->
+<!--  }-->
+
+
+
+<!--</script>-->
+<form action="#" method="POST" role="form" onsubmit= "required()" autocomplete="off" name="loginform">
+
+  <input type="text" class="form-control" placeholder="Employee Number" name="emp_id" id="emp_id">
+
+  <button type="submit" name="login">Sign In</button>
+
+</form>
+
+  <script>
+    function required(){
+    var empt = document.loginform.emp_id.value;
+    if (empt.length ===" "){
+    toastr.error('Please enter your ID')
+    return false;
   }
-
-
-  function createBlog1() {
-    Swal.fire({
-      icon: 'error',
-      title: 'Failure',
-      text: 'Add new failure!',
-      confirmButtonText: 'Oke',
-      timer: 2000,
-    });
+    else {
+    // success
+    return true;
   }
-
-  // xoá
-  function deleteCategory1() {
-    swal({
-      title: "Delete Successfully!",
-      icon: "success",
-      button: "Oke",
-      timer: 2000,
-    });
-  }
-
-  // chỉnh sửa
-  function updateCategory() {
-    Swal.fire({
-      icon: 'success',
-      title: 'Successfully',
-      text: 'Successful editing!',
-      confirmButtonText: 'Oke',
-      timer: 2000,
-    });
-  }
-
-  function updateCategory1() {
-    Swal.fire({
-      icon: 'error',
-      title: 'Failure',
-      text: 'Edit failed!',
-      confirmButtonText: 'Oke',
-      timer: 2000,
-    });
   }
 </script>
-<script th:inline="javascript">
-  let createCategory = /*[[${mess}]]*/ true;
-  let deleteCategory =/*[[${check}]]*/ true;
-  let update =/*[[${flag}]]*/ true;
-  // thêm mới
-  if (createCategory != null) {
-    if (createCategory) {
-      createBlog();
-    } else {
-      createBlog1();
-    }
-  }
-  // xoá
-  if (deleteCategory) {
-    deleteCategory1();
-  }
-  // update
-  if (update != null) {
-    if (update) {
-      updateCategory();
-    } else {
-      updateCategory1();
-    }
-  }
+<script>
 
 </script>
 </body>
