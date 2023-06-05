@@ -5,10 +5,7 @@ import com.example.bai1.model.CategoryModel;
 import com.example.bai1.repository.IBlogRepository;
 import com.example.bai1.service.IBlogService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -20,8 +17,8 @@ public class BlogService implements IBlogService {
     private IBlogRepository iBlogRepository;
 
     @Override
-    public Page<BlogModel> findAll(int page) {
-        return iBlogRepository.findAll(PageRequest.of(page, 2, Sort.by("dayCreate").descending()));
+    public Page<BlogModel> findAll(Integer page) {
+        return iBlogRepository.findAll(PageRequest.of(page, 5, Sort.by("id").descending()));
     }
 
     @Transactional
@@ -42,15 +39,6 @@ public class BlogService implements IBlogService {
     }
 
     @Override
-    public List<BlogModel> findAllByTitlesContaining(String titles) {
-        return iBlogRepository.findAllByTitlesContaining(titles);
-    }
-
-    @Override
-    public List<BlogModel> findAll() {
-        return iBlogRepository.findAll();
-    }
-    @Override
     public List<BlogModel> findAllByCategoryModel(CategoryModel categoryModel) {
         return iBlogRepository.findAllByCategoryModel(categoryModel);
     }
@@ -58,6 +46,16 @@ public class BlogService implements IBlogService {
     @Override
     public Page<BlogModel> searchBlog(String title, Integer page) {
         return iBlogRepository.findCategory(title, Pageable.unpaged());
+    }
+
+    @Override
+    public List<BlogModel> searchBlog(String title) {
+        return iBlogRepository.findBlog(title);
+    }
+
+    @Override
+    public Slice<BlogModel> findAllBlog(Integer pageable) {
+        return iBlogRepository.findAllBlog(Pageable.unpaged());
     }
 
 

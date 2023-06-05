@@ -4,6 +4,7 @@ import com.example.bai1.model.BlogModel;
 import com.example.bai1.model.CategoryModel;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Slice;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -27,5 +28,9 @@ public interface IBlogRepository extends JpaRepository<BlogModel, Integer> {
     List<BlogModel> findAllByCategoryModel(CategoryModel categoryModel);
 
     @Query(value = "SELECT b from BlogModel AS  b where b.titles like concat('%',:titles,'%') ")
-    Page<BlogModel>findCategory(@Param("titles")String titles,Pageable pageable);
+    Page<BlogModel>findCategory(@Param("titles")String titles, Pageable pageable);
+    @Query(value = "SELECT b from BlogModel AS  b where b.titles like concat('%',:titles,'%') ")
+    List<BlogModel> findBlog(@Param("titles")String titles);
+    @Query(value = "select b from BlogModel AS b ")
+    Slice<BlogModel> findAllBlog(Pageable pageable);
 }
