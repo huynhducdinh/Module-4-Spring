@@ -24,10 +24,7 @@ public class BlogRestController {
     public ResponseEntity<List<BlogModel>> getAllBlog(){
         return new  ResponseEntity<>(iBlogService.findAll(), HttpStatus.OK);
     }
-   @GetMapping("/category")
-    public  ResponseEntity<List<CategoryModel> >getAll(){
-        return new ResponseEntity<>(iCategoryService.findAll(),HttpStatus.OK);
-   }
+
    @GetMapping("{id}/list")
     public ResponseEntity<List<BlogModel>> viewListBlogByCategory(@PathVariable("id") Integer id){
         CategoryModel categoryModel=iCategoryService.findById(id);

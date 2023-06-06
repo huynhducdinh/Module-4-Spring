@@ -46,7 +46,7 @@ public class BlogController {
         return "create";
     }
 
-    @PostMapping("/create")
+        @PostMapping("/create")
     public String createBlogs(@ModelAttribute("blogModel") BlogModel blogModel, RedirectAttributes attributes) {
         LocalDateTime create = LocalDateTime.now();
         blogModel.setDayCreate(create);
